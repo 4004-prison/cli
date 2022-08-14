@@ -7,9 +7,9 @@ type Command struct {
 	Usage       string
 	Description string
 	Action      ActionFunc
-	Args        []Args
+	Flags       FlagSet
 }
 
 func (c *Command) Run(ctx *Context) {
-
+	c.Action(ctx)
 }
