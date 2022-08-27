@@ -27,13 +27,13 @@ func (flagSliceString *SliceString) val() interface{} {
 	return flagSliceString.instance
 }
 
-func (flagSliceString *SliceString) set(args ArgsArray) error {
-	for i := 0; i < len(args); i++ {
-		if args[i] == flagSliceString.Name {
-			if i+1 > len(args) {
+func (flagSliceString *SliceString) set(args *ArgsArray) error {
+	for i := 0; i < len(*args); i++ {
+		if (*args)[i] == flagSliceString.Name {
+			if i+1 > len(*args) {
 				return errors.New(flagSliceString.Name + " needs argument")
 			}
-			flagSliceString.instance = append(flagSliceString.instance, args[i+1])
+			flagSliceString.instance = append(flagSliceString.instance, (*args)[i+1])
 			args.remove(i, i+1)
 			i--
 		}

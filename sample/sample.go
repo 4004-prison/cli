@@ -14,11 +14,15 @@ func main() {
 			{
 				Name: "run",
 				Action: func(ctx *cli.Context) {
-					fmt.Println(ctx.String("t"))
+					fmt.Printf("%s\n", ctx.String("string"))
+					fmt.Printf("%#v\n", ctx.Value("slicestring"))
 				},
 				Flags: []cli.Flag{
 					&cli.String{
-						Name: "t",
+						Name: "string",
+					},
+					&cli.SliceString{
+						Name: "slicestring",
 					},
 				},
 			},

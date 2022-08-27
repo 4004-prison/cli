@@ -9,11 +9,15 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}",
+            "program": "sample",
             "args": [
                 "run",
-                "t",
-                "hello"
+                "string",
+                "hello",
+                "slicestring",
+                "a",
+                "slicestring",
+                "b"
             ]
         }
     ]

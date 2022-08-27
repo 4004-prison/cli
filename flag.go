@@ -7,7 +7,7 @@ type Flag interface {
 	GetUsage() string
 	Kind() reflect.Kind
 	val() interface{}
-	set(ArgsArray) error
+	set(*ArgsArray) error
 }
 
 type FlagSet []Flag

@@ -30,9 +30,9 @@ func (ctx *Context) Args() ArgsArray {
 
 func (ctx *Context) parse(flagSet FlagSet) error {
 	ctx.flagVal = make(map[string]interface{})
-	iterator := ctx.args.Tail()
+	iterator := ArgsArray(ctx.args.Tail())
 	for _, flag := range flagSet {
-		if err := flag.set(ArgsArray(iterator)); err != nil {
+		if err := flag.set(&iterator); err != nil {
 			return err
 		}
 		ctx.flagVal[flag.GetName()] = flag.val()

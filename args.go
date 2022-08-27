@@ -1,5 +1,7 @@
 package cli
 
+import "sort"
+
 type ArgsArray []string
 
 func (a *ArgsArray) First() string {
@@ -24,12 +26,15 @@ func (a *ArgsArray) Get(index int) string {
 }
 
 func (a *ArgsArray) remove(index ...int) {
-	for _, i := range index {
-		switch {
-		case i == len(*a)-1:
-			*a = (*a)[:i]
-		case i >= 0 && i < len(*a)-1:
-			*a = append((*a)[:i], (*a)[i+1:]...)
+	index = sort.IntSlice(index)
+	indexCursor := 0
+	newSlice := (*a)[:0]
+	for i := range *a {
+		if indexCursor < len(index) && i == index[indexCursor] {
+			indexCursor++
+			continue
 		}
+		newSlice = append(newSlice, (*a)[i])
 	}
+	*a = newSlice
 }
