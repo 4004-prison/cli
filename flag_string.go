@@ -28,13 +28,23 @@ func (flagString *String) val() interface{} {
 }
 
 func (flagString *String) set(args ArgsArray) error {
-	for i, v := range args {
-		if v == flagString.Name {
+	// for i, v := range args {
+	// 	if v == flagString.Name {
+	// 		if i+1 > len(args) {
+	// 			return errors.New(flagString.Name + " needs argument")
+	// 		}
+	// 		flagString.instance = args[i+1]
+	// 		args.remove(i, i+1)
+	// 	}
+	// }
+	for i := 0; i < len(args); i++ {
+		if args[i] == flagString.Name {
 			if i+1 > len(args) {
 				return errors.New(flagString.Name + " needs argument")
 			}
 			flagString.instance = args[i+1]
 			args.remove(i, i+1)
+			return nil
 		}
 	}
 	return nil
