@@ -20,7 +20,11 @@
                 "b",
                 "int",
                 "3",
-                "bool"
+                "bool",
+                "sliceint",
+                "1",
+                "sliceint",
+                "2"
             ]
         }
     ]
