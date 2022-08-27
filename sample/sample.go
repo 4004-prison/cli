@@ -16,6 +16,8 @@ func main() {
 				Action: func(ctx *cli.Context) {
 					fmt.Printf("%s\n", ctx.String("string"))
 					fmt.Printf("%#v\n", ctx.Value("slicestring"))
+					fmt.Printf("%d\n", ctx.Value("int"))
+					fmt.Printf("%v", ctx.Value("bool"))
 				},
 				Flags: []cli.Flag{
 					&cli.String{
@@ -23,6 +25,12 @@ func main() {
 					},
 					&cli.SliceString{
 						Name: "slicestring",
+					},
+					&cli.Int{
+						Name: "int",
+					},
+					&cli.Bool{
+						Name: "bool",
 					},
 				},
 			},
