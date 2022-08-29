@@ -1,9 +1,10 @@
 package main
 
 import (
-	"cli"
 	"fmt"
 	"os"
+
+	"github.com/4004-prison/cli"
 )
 
 func main() {
