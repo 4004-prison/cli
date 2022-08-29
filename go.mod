@@ -1,3 +1,3 @@
 module github.com/4004-prison/cli
 
-go 1.18
+go 1.16
