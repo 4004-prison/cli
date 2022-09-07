@@ -6,9 +6,9 @@ import (
 )
 
 type SliceString struct {
-	Name     string
-	Usage    string
-	instance []string
+	Name  string
+	Usage string
+	Value []string
 }
 
 func (flagSliceString *SliceString) GetName() string {
@@ -24,7 +24,7 @@ func (flagSliceString *SliceString) Kind() reflect.Kind {
 }
 
 func (flagSliceString *SliceString) val() interface{} {
-	return flagSliceString.instance
+	return flagSliceString.Value
 }
 
 func (flagSliceString *SliceString) set(args *ArgsArray) error {
@@ -33,9 +33,18 @@ func (flagSliceString *SliceString) set(args *ArgsArray) error {
 			if i+1 > len(*args) {
 				return errors.New(flagSliceString.Name + " needs argument")
 			}
-			flagSliceString.instance = append(flagSliceString.instance, (*args)[i+1])
+			flagSliceString.Value = append(flagSliceString.Value, (*args)[i+1])
 			args.remove(i, i+1)
 			i--
+		}
+	}
+	return nil
+}
+
+func (ctx *Context) SliceString(flag string) []string {
+	if any := ctx.Value(flag); any != nil {
+		if v, ok := any.([]string); ok {
+			return v
 		}
 	}
 	return nil

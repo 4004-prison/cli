@@ -20,6 +20,7 @@ func main() {
 					fmt.Printf("%d\n", ctx.Value("int"))
 					fmt.Printf("%v\n", ctx.Value("bool"))
 					fmt.Printf("%#v\n", ctx.Value("sliceint"))
+					fmt.Printf("%#v\n", ctx.String("abc"))
 				},
 				Flags: []cli.Flag{
 					&cli.String{

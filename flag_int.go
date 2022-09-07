@@ -7,9 +7,9 @@ import (
 )
 
 type Int struct {
-	Name     string
-	Usage    string
-	instance int
+	Name  string
+	Usage string
+	Value int
 }
 
 func (flagInt *Int) GetName() string {
@@ -25,7 +25,7 @@ func (flagInt *Int) Kind() reflect.Kind {
 }
 
 func (flagInt *Int) val() interface{} {
-	return flagInt.instance
+	return flagInt.Value
 }
 
 func (flagInt *Int) set(args *ArgsArray) error {
@@ -38,10 +38,19 @@ func (flagInt *Int) set(args *ArgsArray) error {
 			if err != nil {
 				return errors.New(flagInt.Name + " is not integer")
 			}
-			flagInt.instance = instance
+			flagInt.Value = instance
 			args.remove(i, i+1)
 			return nil
 		}
 	}
 	return nil
+}
+
+func (ctx *Context) Int(flag string) int {
+	if any := ctx.Value(flag); any != nil {
+		if v, ok := any.(int); ok {
+			return v
+		}
+	}
+	return 0
 }

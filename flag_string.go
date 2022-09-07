@@ -6,9 +6,9 @@ import (
 )
 
 type String struct {
-	Name     string
-	Usage    string
-	instance string
+	Name  string
+	Usage string
+	Value string
 }
 
 func (flagString *String) GetName() string {
@@ -24,7 +24,7 @@ func (flagString *String) Kind() reflect.Kind {
 }
 
 func (flagString *String) val() interface{} {
-	return flagString.instance
+	return flagString.Value
 }
 
 func (flagString *String) set(args *ArgsArray) error {
@@ -33,10 +33,19 @@ func (flagString *String) set(args *ArgsArray) error {
 			if i+1 > len(*args) {
 				return errors.New(flagString.Name + " needs argument")
 			}
-			flagString.instance = (*args)[i+1]
+			flagString.Value = (*args)[i+1]
 			args.remove(i, i+1)
 			return nil
 		}
 	}
 	return nil
+}
+
+func (ctx *Context) String(flag string) string {
+	if any := ctx.Value(flag); any != nil {
+		if v, ok := any.(string); ok {
+			return v
+		}
+	}
+	return ""
 }

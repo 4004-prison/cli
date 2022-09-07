@@ -40,15 +40,6 @@ func (ctx *Context) parse(flagSet FlagSet) error {
 	return nil
 }
 
-func (ctx *Context) String(flag string) string {
-	if any := ctx.Value(flag); any != nil {
-		if v, ok := any.(string); ok {
-			return v
-		}
-	}
-	return ""
-}
-
 func (ctx *Context) Value(flag string) interface{} {
 	if any, ok := ctx.flagVal[flag]; ok {
 		return any

@@ -7,9 +7,9 @@ import (
 )
 
 type SliceInt struct {
-	Name     string
-	Usage    string
-	instance []int
+	Name  string
+	Usage string
+	Value []int
 }
 
 func (flagSliceInt *SliceInt) GetName() string {
@@ -25,7 +25,7 @@ func (flagSliceInt *SliceInt) Kind() reflect.Kind {
 }
 
 func (flagSliceInt *SliceInt) val() interface{} {
-	return flagSliceInt.instance
+	return flagSliceInt.Value
 }
 
 func (flagSliceInt *SliceInt) set(args *ArgsArray) error {
@@ -38,9 +38,18 @@ func (flagSliceInt *SliceInt) set(args *ArgsArray) error {
 			if err != nil {
 				return errors.New(flagSliceInt.Name + " is not integer")
 			}
-			flagSliceInt.instance = append(flagSliceInt.instance, instance)
+			flagSliceInt.Value = append(flagSliceInt.Value, instance)
 			args.remove(i, i+1)
 			i--
+		}
+	}
+	return nil
+}
+
+func (ctx *Context) SliceInt(flag string) []int {
+	if any := ctx.Value(flag); any != nil {
+		if v, ok := any.([]int); ok {
+			return v
 		}
 	}
 	return nil
